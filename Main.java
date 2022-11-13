@@ -6,41 +6,16 @@ import java.util.Random;
 import java.util.Scanner;
 
 public class Main {
-    public static void main(String[] args)
-    {
+    public static void main(String[] args) {
 
         int length = getLength();
         String pass = randomizeStr(length);
         System.out.println(pass);
-        System.out.println("It will be stored in a file called passwords.txt");
-
-        BufferedWriter output = null;
-
-            try {
-                File file = new File("passwords.txt");
-                output = new BufferedWriter(new FileWriter(file));
-                output.write(pass);
-                }
-
-            catch (IOException e ) {
-                    e.printStackTrace();
-                }
-
-            finally {
-                    if ( output != null ) {
-                        try {
-                            output.close();
-                        }
-                        catch (IOException e)
-                        {
-                            e.printStackTrace();
-                        }
-                    }
-                }
-
+        storePassword(pass);
 
     }
 
+    //function to give a random String
     private static String randomizeStr(int length){
 
         char[] alphabet = "abcdefghijklmnopqrstuvwxyz".toCharArray();
@@ -70,6 +45,7 @@ public class Main {
         return password;
     }
 
+    //function to retrieve desired length of Password
     private static int getLength(){
         System.out.println("Welcome to Password generator and storer");
         System.out.println("Please enter the desired length of the password");
@@ -80,6 +56,36 @@ public class Main {
 
         }
         return scan.nextInt();
+    }
+
+    //function to store the password
+    private static void storePassword(String pass){
+        System.out.println("It will be stored in a file called passwords.txt");
+
+        BufferedWriter output = null;
+
+        try {
+            File file = new File("passwords.txt");
+            output = new BufferedWriter(new FileWriter(file));
+            output.write(pass);
+        }
+
+        catch (IOException e ) {
+            e.printStackTrace();
+        }
+
+        finally {
+            if ( output != null ) {
+                try {
+                    output.close();
+                }
+                catch (IOException e)
+                {
+                    e.printStackTrace();
+                }
+            }
+        }
+
     }
 
     }
